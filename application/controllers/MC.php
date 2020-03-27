@@ -19,7 +19,7 @@ class MC extends CI_Controller
 
 // Load the model as Model if set to true
     $bLoadModel and
-     $this->load->model($this->config->item('backend') . '/' .ucfirst($sCurrent) . '_model', 'Model', TRUE);
+     $this->load->model(ucfirst($sCurrent) . '_model', 'Model', TRUE);
 
 // Load Java Script if set to true
     $bLoadJS === TRUE and
