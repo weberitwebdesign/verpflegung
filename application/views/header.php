@@ -16,9 +16,6 @@
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
 
 
-<!-- Toastr CSS -->
-    <link href="<?php echo base_url(); ?>assets/css/toastr.min.css" rel="stylesheet">
-
 <!-- Debug Bar CSS -->
 <?php
     if($_SERVER['CI_ENV'] != 'production'){
@@ -36,14 +33,12 @@
 ?>
 
 <!-- JQuery JS -->
-    <script src="<?php echo base_url(); ?>assets/js/jquery-3.3.1.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
     <div class='container'>
-        <div id='head' class="row">
-            <h2 class='text-center well well-sm'>Administration - Shop</h2>
-        </div>
+<!--   
         <div class="row">
             <?=$sMenu; ?>
-        </div>
+        </div> -->
