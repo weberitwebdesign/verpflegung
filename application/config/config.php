@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://verpflegung.bernet-catering.ch';
+$config['base_url'] = 'https://verpflegung.bernet-catering.ch';
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +138,28 @@ $config['subclass_prefix'] = 'MY_';
 */
 $config['composer_autoload'] = FALSE;
 
+spl_autoload_register(function($sClassName)
+{
+    // class directories
+    $aDirectories = array(
+        APPPATH . 'core/',
+        APPPATH . 'controllers/',
+        APPPATH . 'third_party/',
+// add more autoloading folders here… and you’re done.
+    );
+// for each directory
+    foreach ($aDirectories as $sDirectory)
+    {
+        // see if the file exsists
+        if (file_exists($sDirectory . $sClassName . '.php'))
+        {
+            require_once($sDirectory . $sClassName . '.php');
+            // only require the class once, so quit after to save effort (if you got more, then name them something else
+
+            return;
+        }
+    }
+});
 /*
 |--------------------------------------------------------------------------
 | Allowed URL Characters
