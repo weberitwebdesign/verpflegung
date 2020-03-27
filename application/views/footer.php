@@ -9,9 +9,6 @@
         </footer>
     </div>
 
-    <script src="<?php echo base_url(); ?>assets/js/toastr.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/global.js"></script>
-
 <!-- Bootstrap JS-->
     <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 
@@ -25,40 +22,6 @@
 // Load Java Script
     foreach ($aJsFiles as $sJsFile) {
         echo '<script src="', base_url(), 'assets/js/', $sJsFile, '"></script>';
-    }
-
-    if (isset($sMessage) && $sMessage != ''){ ?>
-        <script>
-        $(document).ready(function() {
-<?php   switch($sMessage){
-            case 'save success': ?>
-                toastr.success("Eintrag wurde erfolgreich gespeichert", "Speichern erfolgreich")
-<?php       break;
-            default: ?>
-                toastr.error("<?= $sMessage;?>", "Fehler")
-<?php       break;
-        } ?>
-        });
-        </script>
-<?php
-    }
-    if(isset($_SESSION['message']) && $_SESSION['message_kat'] == 'error'){
-?>
-        <script>
-            $(document).ready(function () {
-                toastr.error("<?= $this->session->flashdata('message') ?>", "<?= $this->session->flashdata('message_titel') ?>")
-            })
-        </script>
-<?php
-    }
-    if(isset($_SESSION['message']) && $_SESSION['message_kat'] == 'success'){
-?>
-        <script>
-            $(document).ready(function () {
-                toastr.success("<?= $this->session->flashdata('message') ?>", "<?= $this->session->flashdata('message_titel') ?>")
-            })
-        </script>
-<?php
     }
 ?>
 </body>
