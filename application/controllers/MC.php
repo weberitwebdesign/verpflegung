@@ -17,6 +17,13 @@ class MC extends CI_Controller
       $this->output->enable_profiler(TRUE);
     }
 
+  //  if(!$this->ion_auth->is_admin()){
+    if (!$this->ion_auth->logged_in()){
+      $sRederictUrl = base_url() . uri_string();
+      $this->session->set_userdata('sRedirectUrl', $sRederictUrl);
+      redirect(base_url('auth/login'), 'refresh');
+    }
+
 // Load the model as Model if set to true
     $bLoadModel and
      $this->load->model(ucfirst($sCurrent) . '_model', 'Model', TRUE);
