@@ -48,6 +48,7 @@ class Order extends MC
       'qty'     => $this->input->post('qty', true),
       'price'   => $this->input->post('price', true),
       'name'    => $this->input->post('name', true),
+      'options' => array('DeliveryDate' => '2020-03-30'),
     );
 
     echo 'hallo';
@@ -60,4 +61,25 @@ class Order extends MC
 
   }
 
+  public function payment(){
+    $aData =  array();
+    $this->renderAll($this->sControllerName . '_payment_view', $aData);
+  }
+
+  private function saveOrder(){
+    $aData =  array();
+    $this->renderAll($this->sControllerName . '_payment_view', $aData);
+  }
+
+  private function sendEmailConfimation(){
+    $this->renderAll($this->sControllerName . '_payment_view', $aData);
+  }
+
+  private function showScreenConfirmation(){
+    $this->renderAll($this->sControllerName . '_payment_view', $aData);
+  }
+
+  public function payWithTwint(){
+    $this->renderAll($this->sControllerName . '_payment_view', $aData);
+  }
 }
