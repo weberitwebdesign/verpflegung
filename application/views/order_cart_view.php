@@ -1,12 +1,11 @@
-<?php echo form_open('https://verpflegung.local/order/edit/'); ?>
-
+<?php echo form_open(site_url() . 'order/edit/'); ?>
 <table cellpadding="6" cellspacing="1" style="width:100%" class="table table-striped table-condended">
 
 <tr class="small">
-        <th>Menge</th>
-        <th>Beschreibung</th>
-        <th style="text-align:right">Einzelpreis</th>
-        <th style="text-align:right">Subtotal</th>
+  <th>Menge</th>
+  <th>Beschreibung</th>
+  <th style="text-align:right">Einzelpreis</th>
+  <th style="text-align:right">Subtotal</th>
 </tr>
 
 <?php $i = 1; ?>
@@ -49,5 +48,5 @@
 
 </table>
 
-<p><?php echo form_submit('', 'Update your Cart'); ?></p>
-<a class="btn btn-default" href="<?=site_url()?>order/payment" role="button">Bestellen</a>
+<p><button class="btn btn-default" type="submit">Aktualisieren</button>
+<a class="btn btn-primary block-right" href="<?=site_url()?>order/payment" role="button">Bestellen</a></p>

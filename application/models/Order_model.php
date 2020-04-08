@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Order_model extends MY_Model{
+class Order_model extends CI_Model{
 
 
   public function getDeliveryDates()
@@ -22,11 +22,29 @@ class Order_model extends MY_Model{
 
   public function getProducts($sDt)
   {
-    $this->db->select('a.ID, a.Name, p.VKPreis');
+    $this->db->select('a.ID, a.Name, p.VKPreis, a.Allergene, a.Spuren');
     $this->db->where('a.ID = p.IDProdukt');
     $this->db->where('p.Startdatum <=', $sDt);
     $this->db->where('p.Enddatum >=', $sDt);
     $this->db->where('a.Name LIKE', 'Snäx%*');
     return $this->db->get('artikel AS a, preise AS p')->result();
+  }
+
+  public function saveOrder($sKdNav, $items = array()){
+    $aData = array(
+      'Kunde' => $sKdNav,
+      'Datum' => $items['deliverydate'],
+      'Was' => 'Einzelartikel',
+      'MLorArtnr' => $items['id'],
+      'Anzahl' => $items['qty'],
+      'Created' => date("Y-m-d H:i:s", now()),
+    );
+    return $this->db->insert('bestellung', $aData);
+  }
+
+  public function getKdNav($userId){
+    $this->db->select('kd_nav', 'firstname', 'lastname');
+    $this->db->where('id', $userId);
+    return $this->db->get('users')->result();
   }
 }
