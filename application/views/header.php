@@ -37,8 +37,7 @@
 </head>
 
 <body>
-    <div class='container'>
-<!--   
-        <div class="row">
-            <?=$sMenu; ?>
-        </div> -->
+  <div class='container'>
+    <div class="row">
+      <?=$sMenu; ?>
+    </div>
