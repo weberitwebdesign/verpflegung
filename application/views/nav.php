@@ -23,7 +23,7 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="<?= site_url(); ?>Menulinie">
+                <a href="<?= site_url(); ?>Upload">
                   <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Upload Fotos
                 </a>
               </li>
@@ -33,28 +33,15 @@
                 </a>
               </li>
               <li>
-                <a href="<?= site_url(); ?>/Dokument/zukunftige">Lieferdaten und Bestellschluss</a>
+                <a href="<?= site_url(); ?>Lieferdatum">Lieferdaten und Bestellschluss</a>
               </li>
             </ul>
           </li>
           <li>
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> Benutzerverwaltung <span class="caret"></span>
+            <a href="<?= site_url(); ?>users">
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Benutzerverwaltung
             </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a href="<?= site_url(); ?>/download">
-                  <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Neuer Benutzer erfassen
-                </a>
-              </li>
-              <li>
-                <a href="<?= site_url(), $this->config->item('backend'); ?>/Upload">
-                  <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Übersicht Benutzer
-                </a>
-              </li>
-            </ul>
           </li>
-
 <?php
         }
 ?>
@@ -62,7 +49,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Benutzer <span class="caret"></span></a>
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?= $_SESSION['email'];?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li>
               <a href="<?= site_url(); ?>auth/change_password">Passwort ändern</a>

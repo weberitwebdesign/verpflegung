@@ -48,5 +48,9 @@
 
 </table>
 
+<?php if ($this->cart->total() != 0){ ?>
 <p><button class="btn btn-default" type="submit">Aktualisieren</button>
 <a class="btn btn-primary block-right" href="<?=site_url()?>order/payment" role="button">Bestellen</a></p>
+<?php
+}
+?>

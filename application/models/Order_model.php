@@ -7,9 +7,10 @@ class Order_model extends CI_Model{
   public function getDeliveryDates()
   {
     $this->db->where('lieferdatum <=', $this->getHighestDate());
-    $this->db->where('bestellschluss >', date("Y-m-d H:i:s"));
+    $this->db->where('bestellschluss >=', date("Y-m-d"));
+    $this->db->where('status >', 0);
     $this->db->order_by('lieferdatum', 'ASC');
-    return $this->db->get('lieferdate')->result();
+    return $this->db->get('lieferdatum')->result();
   }
 
   public function getHighestDate(){

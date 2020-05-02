@@ -24,8 +24,8 @@ $lang['error_csrf'] = 'Dieses Formular hat unsere Sicherheitskontrollen nicht be
 
 // Login
 $lang['login_heading']         = 'Einloggen';
-$lang['login_subheading']      = 'Bitte loggen Sie sich ein mit Ihrer/n Email/Benutzernamen und Kennwort unten ein.';
-$lang['login_identity_label']  = 'Email/Benutzername:';
+$lang['login_subheading']      = 'Bitte loggen Sie sich ein mit Ihrer E-Mail Adresse und Kennwort unten ein.';
+$lang['login_identity_label']  = 'E-Mail:';
 $lang['login_password_label']  = 'Kennwort:';
 $lang['login_remember_label']  = 'Eingeloggt bleiben:';
 $lang['login_submit_btn']      = 'Einloggen';
@@ -62,7 +62,7 @@ $lang['create_user_fname_label']                       = 'Vorname:';
 $lang['create_user_lname_label']                       = 'Nachname:';
 $lang['create_user_identity_label']                    = 'Benutzername:';
 $lang['create_user_company_label']                     = 'Firmenname:';
-$lang['create_user_email_label']                       = 'Email:';
+$lang['create_user_email_label']                       = 'E-Mail:';
 $lang['create_user_phone_label']                       = 'Telefon:';
 $lang['create_user_password_label']                    = 'Kennwort:';
 $lang['create_user_password_confirm_label']            = 'Kennwort bestätigen:';
@@ -134,13 +134,13 @@ $lang['change_password_validation_new_password_confirm_label'] = 'Neues Kennwort
 
 // Forgot Password
 $lang['forgot_password_heading']                 = 'Kennwort vergessen';
-$lang['forgot_password_subheading']              = 'Bitte geben Sie Ihre %s ein damit wir Ihnen eine Email schicken können um das Kennwort zu ändern.';
+$lang['forgot_password_subheading']              = 'Bitte geben Sie Ihre %s ein damit wir Ihnen eine E-Mail schicken können um das Kennwort zu ändern.';
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Eingabe';
-$lang['forgot_password_validation_email_label']  = 'Email';
+$lang['forgot_password_validation_email_label']  = 'E-Mail';
 $lang['forgot_password_username_identity_label'] = 'Benutzername';
-$lang['forgot_password_email_identity_label']    = 'Email';
-$lang['forgot_password_email_not_found']         = 'Kein Eintrag für diese Email Adresse gefunden.';
+$lang['forgot_password_email_identity_label']    = 'E-Mail';
+$lang['forgot_password_email_not_found']         = 'Kein Eintrag für diese E-Mail Adresse gefunden.';
 $lang['forgot_password_identity_not_found']      = 'Kein Eintrag für diesen Benutzernamen gefunden.';
 
 
@@ -161,4 +161,3 @@ $lang['email_activate_link']       = 'Aktivieren Sie Ihr Konto';
 $lang['email_forgot_password_heading']    = 'Kennwort für %s zurücksetzen';
 $lang['email_forgot_password_subheading'] = 'Bitte drücken Sie diese Link um zu %s.';
 $lang['email_forgot_password_link']       = 'Ihr Kennwort zurückstellen';
-

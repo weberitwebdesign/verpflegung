@@ -16,14 +16,18 @@ class Order extends MC
 
   public function index($iPage = 0)
   {
+    $aData['iPage'] = $iPage;
     if (array_key_exists('myorder' ,$this->input->post())){
+      setlocale (LC_TIME, 'German', 'de_DE', 'deu', "de_DE.UTF-8");
+      $sDeliveryDate = $this->input->post('deliverydate', true);
+      $sDeliveryDate = strftime("%A, %d.%m.%Y", strtotime($sDeliveryDate));
       $aCart = array(
         'id'      => $this->input->post('id', true),
         'qty'     => $this->input->post('qty', true),
         'price'   => $this->input->post('price', true),
         'name'    => $this->input->post('name', true),
         'deliverydate' => $this->input->post('deliverydate', true),
-        'options' => array('DeliveryDate' => '2020-04-08')
+        'options' => array('Lieferdatum' => $sDeliveryDate)
       );
       $rowID = $this->cart->insert($aCart);
     }
@@ -32,6 +36,9 @@ class Order extends MC
 
 // Gibt ein Array mit allen möglichen Lieferdaten zurück
     $aData['DeliveryDates'] = $this->Model->getDeliveryDates();
+    if (empty($aData['DeliveryDates'])){
+      echo "error";
+    }
     $aData['sDeliveryDate'] = $aData['DeliveryDates'][$iPage]->lieferdatum;
 
 
@@ -71,17 +78,11 @@ class Order extends MC
 
   } */
 
-  public function edit($iPage)
-  {
 
-
-  }
-  public function editr(){
-
-  }
 
   public function payByBill(){
     $oKdNav = $this->Model->getKdNav($_SESSION['user_id']);
+    vardump($oKdNav);
     $bSaveSuccess = $this->saveOrder($oKdNav[0]->kd_nav);
     if ($bSaveSuccess === true){
       $this->sendMailConfirmation($oKdNav[0]);
@@ -91,11 +92,11 @@ class Order extends MC
       $this->renderAll($this->sControllerName . '_error_view');
     }
   }
-  public function payByTwint(){
+  public function paidByTwint(){
     $oKdNav = $this->Model->getKdNav($_SESSION['user_id']);
     $bSaveSuccess = $this->saveOrder($oKdNav[0]->kd_nav);
     if ($bSaveSuccess === true){
-      $this->sendMailConfirmation($oKdNav[0]);
+      $this->sendMailConfirmation();
       $this->renderAll($this->sControllerName . '_confirmation_view');
       $this->cart->destroy();
     } else {
@@ -104,41 +105,29 @@ class Order extends MC
   }
 
   private function saveOrder($sKdNav){
-    $bSaveSuccess = false;
+    $bSaveSuccess = true;
     foreach ($this->cart->contents() as $items){
-      $bSaveSuccess = $this->Model->saveOrder($sKdNav, $items);
+      if (!$this->Model->saveOrder($sKdNav, $items)){
+        $bSaveSuccess = false;
+      }
     }
     return $bSaveSuccess;
   }
 
-  private function sendMailConfirmation($sKdNav) {
-  // Mail-Versand
-  $this->load->library('email');
-  $aConfig['charset'] = 'utf-8';
-  $aConfig['wordwrap'] = true;
-  $aConfig['useragent'] = 'Microsoft-Entourage/10.1.1.2418';
-  $this->email->initialize($aConfig);
+  private function sendMailConfirmation()
+  {
+    // Mail-Versand
+    $this->load->library('email');
 
-  $sText  = $this->lang->line('payment_ok') . PHP_EOL . PHP_EOL;
-  $sText  .= $this->lang->line('besten_dank_gruss');
+    $sText  = 'Bezahlung mit Twint.' . PHP_EOL . PHP_EOL;
+    $sText  .= 'Besten Dank für Ihre Bestellung';
 
-  $this->email->message($sText);
+    $this->email->message($sText);
+    $this->email->to($this->session->userdata('email'), 'benjamin@fa-weber.ch');
+    $this->email->from('no_reply@bernet-catering.ch', 'Bernet Catering');
+    $this->email->subject('Ihre Bestellung bei Bernet Catering GmbH');
 
-  //$this->email->reply_to($this->config->item('kontakt_email'));
-  $this->email->reply_to($this->config->item('kontakt_email'));
+    $this->email->send();
+  }
 
-  $this->email->to($this->session->userdata('email'));
-  $this->email->from($this->config->item('kontakt_email'));
-  $this->email->subject($this->lang->line('payment_bestaetigung'));
-  $this->email->send();
-
-  $this->email->clear();
-
-  $this->email->message($this->session->userdata('firstname') . ' ' . $this->session->userdata('lastname') . ' hat bezahlt.' . PHP_EOL);
-  $this->email->from('payment@klik-info.ch');
-  $this->email->to($this->config->item('kontakt_email'));
-  $this->email->to($this->config->item('webmaster'));
-  $this->email->subject($this->lang->line('payment_bestaetigung'));
-  return $this->email->send();
-}
 }

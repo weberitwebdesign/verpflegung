@@ -42,7 +42,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Abbruch</button>
-        <button type="button" class="btn btn-primary">Done</button>
+        <a class="btn btn-primary" href="paidByTwint" role="button">Bezahlt</a>
     </div>
   </div>
 </div>

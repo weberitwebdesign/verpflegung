@@ -1,11 +1,30 @@
 <div class="row">
   <h2>Bestellung <small> Wählen Sie Ihr gewünschtes Lieferdatum</small></h2>
 <?php
+setlocale (LC_TIME, 'German', 'de_DE', 'deu', "de_DE.UTF-8");
+
   foreach ($DeliveryDates as $i => $oLiefertag){
-    echo '<a class="btn btn-default" href="' . $sUrlBase . $sCurrent . '/' . $i . '" role="button">' . nice_date($oLiefertag->lieferdatum, 'l, d.m.Y') . '</a>';
+    $sClass = ($i ==  $iPage) ? 'active ' : '';
+    if($this->ion_auth->is_admin()){
+      switch($oLiefertag->status){
+        case 1:
+          $sClass .= 'btn btn-warning';
+        break;
+        case 2:
+          $sClass .= 'btn btn-success';
+        break;
+      }
+    echo '<a class="' . $sClass .'" href="' . $sUrlBase . $sCurrent . '/' . $i . '" role="button">' . strftime("%A, %d.%m.%Y", strtotime($oLiefertag->lieferdatum)) . '<br><small><small>Bestellschluss: ' . strftime("%A, %d.%m.%Y", strtotime($oLiefertag->bestellschluss)) . '</small></small></a> ';
+    } else {
+      if ($oLiefertag->status == '2'){
+        echo '<a class="' . $sClass . 'btn btn-default" href="' . $sUrlBase . $sCurrent . '/' . $i . '" role="button">' . strftime("%A, %d.%m.%Y", strtotime($oLiefertag->lieferdatum)) . '<br><small><small>Bestellschluss: ' . strftime("%A, %d.%m.%Y", strtotime($oLiefertag->bestellschluss)) . '</small></small></a> ';
+      }
+    }
+
   }
 ?>
 </div><br>
+
 <div class="col-md-8">
 <?php
   $count = 0;
@@ -23,12 +42,21 @@
 ?>
       <div class="col-md-4">
         <div class="thumbnail">
-          <img src="<?=$sUrlBase;?>assets/img/<?= $oMenu->ID;?>.png" alt="...">
+<?php
+          if (realpath('assets/img/prod_img/' . $oMenu->ID . '.png')){
+            $picurl = $sUrlBase . 'assets/img/prod_img/' . $oMenu->ID . '.png';
+          } elseif (realpath('assets/img/prod_img/' . $oMenu->ID . '.jpg')) {
+            $picurl = $sUrlBase . 'assets/img/prod_img/' . $oMenu->ID . '.jpg';
+          } else {
+            $picurl = $sUrlBase . 'assets/img/prod_img/no_pic.png';
+          }
+ ?>
+          <img src="<?=$picurl;?>">
           <div class="caption">
             <h4><?= substr($oMenu->Name,6, -1);?></h4>
             <p>CHF <?= $oMenu->VKPreis;?></p>
 <?php
-            echo form_open($sUrlBase. $sCurrent . '/0');
+            echo form_open($sUrlBase. $sCurrent . '/' .$iPage);
               echo form_hidden($data);
 ?>
               <p><input type="submit" name="myorder" value="Bestellen" class="btn btn-primary" />

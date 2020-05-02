@@ -64,6 +64,9 @@ class Auth extends CI_Controller
 	 */
 	public function login()
 	{
+		if ($this->ion_auth->logged_in()){
+			redirect('', 'refresh');
+		}
 		$this->data['title'] = $this->lang->line('login_heading');
 
 		// validate form input
@@ -101,6 +104,8 @@ class Auth extends CI_Controller
 				'name' => 'identity',
 				'id' => 'identity',
 				'type' => 'text',
+				'autocomplete' => 'username',
+        'class' => 'form-control',
 				'value' => $this->form_validation->set_value('identity'),
 			];
 
@@ -108,6 +113,8 @@ class Auth extends CI_Controller
 				'name' => 'password',
 				'id' => 'password',
 				'type' => 'password',
+				'autocomplete' => 'current-password',
+        'class' => 'form-control',
 			];
 
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'login', $this->data);
@@ -223,6 +230,7 @@ class Auth extends CI_Controller
 			$this->data['identity'] = [
 				'name' => 'identity',
 				'id' => 'identity',
+				'class' => 'form-control',
 			];
 
 			if ($this->config->item('identity', 'ion_auth') != 'email')

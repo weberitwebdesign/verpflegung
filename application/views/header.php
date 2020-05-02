@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
 
 <!-- Bootstrap CSS -->
+    <link href="<?php echo base_url(); ?>assets/css/verpflegung.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
 
 
@@ -38,6 +39,8 @@
 
 <body>
   <div class='container'>
-    <div class="row">
-      <?=$sMenu; ?>
-    </div>
+<?php
+    echo ($this->ion_auth->logged_in())
+     ? '<div class="row">' . $sMenu . '</div>'
+     : '';
+ ?>
